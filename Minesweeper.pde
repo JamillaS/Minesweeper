@@ -16,7 +16,7 @@ void setup ()
     Interactive.make( this );
     
     //your code to declare and initialize buttons goes here
-    
+    bombs = new ArrayList <MSButton> ();
 
     buttons = new MSButton[NUM_ROWS][NUM_COLS];
     for(int y = 0; y < 20; y += 1)
@@ -30,7 +30,13 @@ void setup ()
 }
 public void setBombs()
 {
+    int randRow = (int)(Math.random() * 21);
+    int randCol = (int)(Math.random() * 21);
     //your code
+
+    for(int i = 0; i < 20; i ++)
+     if(!bombs.contains(buttons[randRow][randCol]))
+        bombs.add(buttons[(int)(Math.random() * 20)][(int)(Math.random() * 20)]);
 }
 
 public void draw ()
@@ -92,8 +98,8 @@ public class MSButton
     {    
         if (marked)
             fill(0);
-        // else if( clicked && bombs.contains(this) ) 
-        //     fill(255,0,0);
+        else if( clicked && bombs.contains(this) ) 
+             fill(255,0,0);
         else if(clicked)
             fill( 200 );
         else 
@@ -110,6 +116,8 @@ public class MSButton
     public boolean isValid(int r, int c)
     {
         //your code here
+        if(r < 21 && c < 21)
+            return true;
         return false;
     }
     public int countBombs(int row, int col)
