@@ -92,9 +92,13 @@ public class MSButton
     {
         clicked = true;
         //your code here
-        if(marked){
+        
+            if(marked){
             marked = false;
-        }
+            }
+            else if(bombs.contains(this)){
+                ellipse(200, 200, 200, 200);
+            }
         if(isValid(r,c-1) && buttons[r][c-1].isMarked())
             buttons[r][c-1].mousePressed();
         if(isValid(r,c+1) && buttons[r][c+1].isMarked())
@@ -137,7 +141,21 @@ public class MSButton
     {
         int numBombs = 0;
         //your code here
-        if(buttons[r][c+1].isValid(r,c+1))
+        if(buttons[r][c+1].isValid(r,c+1) && bombs.contains(buttons[r][c+1]))
+            numBombs++;
+        if(buttons[r][c-1].isValid(r,c-1) && bombs.contains(buttons[r][c-1]))
+            numBombs++;
+        if(buttons[r+1][c].isValid(r+1,c) && bombs.contains(buttons[r+1][c]))
+            numBombs++;
+        if(buttons[r-1][c].isValid(r-1,c) && bombs.contains(buttons[r-1][c]))
+            numBombs++;
+        if(buttons[r+1][c+1].isValid(r+1,c+1) && bombs.contains(buttons[r+1][c+1]))
+            numBombs++;
+        if(buttons[r-1][c-1].isValid(r-1,c-1) && bombs.contains(buttons[r-1][c-1]))
+            numBombs++;
+        if(buttons[r+1][c-1].isValid(r+1,c-1) && bombs.contains(buttons[r+1][c-1]))
+            numBombs++;
+        if(buttons[r-1][c+1].isValid(r-1,c+1) && bombs.contains(buttons[r-1][c+1]))
             numBombs++;
         
 
