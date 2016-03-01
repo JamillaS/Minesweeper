@@ -48,15 +48,18 @@ public void draw ()
 public boolean isWon()
 {
     //your code here
+
     return false;
 }
 public void displayLosingMessage()
 {
-    //your code here
+    fill(197);
+    ellipse(200, 200, 200, 200);
 }
 public void displayWinningMessage()
 {
     //your code here
+
 }
 
 public class MSButton
@@ -92,12 +95,18 @@ public class MSButton
     {
         clicked = true;
         //your code here
-        
-            if(marked){
-            marked = false;
+            if(keyPressed && marked == true)
+            {
+                marked = false;
             }
-            else if(bombs.contains(this)){
-                ellipse(200, 200, 200, 200);
+            //if(marked){
+            if(keyPressed && marked == false)
+            {
+                marked = true;
+            }
+            //}
+            else if(bombs.contains(buttons[r][c])){
+                displayLosingMessage();
             }
         if(isValid(r,c-1) && buttons[r][c-1].isMarked())
             buttons[r][c-1].mousePressed();
