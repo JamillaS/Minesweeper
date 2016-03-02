@@ -34,7 +34,7 @@ public void setBombs()
     int randCol = (int)(Math.random() * 21);
     //your code
 
-    for(int i = 0; i < 20; i ++)
+    for(int i = 0; i < 100; i ++)
      if(!bombs.contains(buttons[randRow][randCol]))
         bombs.add(buttons[(int)(Math.random() * 20)][(int)(Math.random() * 20)]);
 }
@@ -99,23 +99,39 @@ public class MSButton
             {
                 marked = false;
             }
-            //if(marked){
-            if(keyPressed && marked == false)
+            else if(keyPressed && marked == false)
             {
                 marked = true;
+            
             }
-            //}
-            else if(bombs.contains(buttons[r][c])){
+            if(bombs.contains(this))
                 displayLosingMessage();
+            else if(this.countBombs(r,c) > 0)
+            {
+                int num = countBombs(r,c);
+                this.setLabel("" + num);
             }
-        if(isValid(r,c-1) && buttons[r][c-1].isMarked())
-            buttons[r][c-1].mousePressed();
-        if(isValid(r,c+1) && buttons[r][c+1].isMarked())
-            buttons[r][c+1].mousePressed();
-        if(isValid(r+1,c) && buttons[r+1][c].isMarked())
-            buttons[r+1][c].mousePressed();
-        if(isValid(r-1,c) && buttons[r-1][c].isMarked())
-            buttons[r-1][c].mousePressed();
+            if(marked == true)
+            {
+                marked = false;
+                if(isValid(r,c-1) && clicked == false )
+                    buttons[r][c-1].mousePressed();
+            }
+            /*
+        else if(marked == true)
+        {
+            marked = false;
+            if(isValid(r,c-1) && buttons[r][c-1].isMarked())
+                buttons[r][c-1].mousePressed();
+            if(isValid(r,c+1) && buttons[r][c+1].isMarked())
+                buttons[r][c+1].mousePressed();
+            if(isValid(r+1,c) && buttons[r+1][c].isMarked())
+                buttons[r+1][c].mousePressed();
+            if(isValid(r-1,c) && buttons[r-1][c].isMarked())
+                buttons[r-1][c].mousePressed();
+        }
+          */
+        
 
         
     }
