@@ -95,6 +95,7 @@ public class MSButton
     {
         clicked = true;
         //your code here
+        /*
             if(keyPressed && marked == true)
             {
                 marked = false;
@@ -111,14 +112,23 @@ public class MSButton
                 int num = countBombs(r,c);
                 this.setLabel("" + num);
             }
-            if(marked == true)
+            */
+            if(clicked == true)
             {
                 marked = false;
-                if(isValid(r,c-1) && clicked == false )
+                if(isValid(r,c-1) && marked == false && !bombs.contains(this))
                     buttons[r][c-1].mousePressed();
+                if(isValid(r,c+1) && marked == false && !bombs.contains(this))
+                    buttons[r][c+1].mousePressed();
+                if(isValid(r+1,c) && marked == false && !bombs.contains(this))
+                    buttons[r+1][c].mousePressed();
+                if(isValid(r-1,c) && marked == false && !bombs.contains(this))
+                    buttons[r-1][c].mousePressed();
             }
+
             /*
-        else if(marked == true)
+
+        if(marked == true)
         {
             marked = false;
             if(isValid(r,c-1) && buttons[r][c-1].isMarked())
