@@ -30,11 +30,11 @@ void setup ()
 }
 public void setBombs()
 {
-    int randRow = (int)(Math.random() * 21);
-    int randCol = (int)(Math.random() * 21);
+    int randRow = (int)(Math.random() * 20);
+    int randCol = (int)(Math.random() * 20);
     //your code
 
-    for(int i = 0; i < 100; i ++)
+    for(int i = 0; i < 50; i ++)
      if(!bombs.contains(buttons[randRow][randCol]))
         bombs.add(buttons[(int)(Math.random() * 20)][(int)(Math.random() * 20)]);
 }
@@ -95,7 +95,7 @@ public class MSButton
     {
         clicked = true;
         //your code here
-            /*
+            
             if(keyPressed && marked == true)
             {
                 marked = false;
@@ -105,26 +105,24 @@ public class MSButton
                 marked = true;
             
             }
-            */
-            if(bombs.contains(this))
+            
+            if(bombs.contains(buttons[r][c]))
                 displayLosingMessage();
             else if(this.countBombs(r,c) > 0)
             {
                 int num = countBombs(r,c);
                 this.setLabel("" + num);
             }
-            
-            
-            if(clicked == true)
+            else if(clicked == true)
             {
-                marked = false;
-                if(isValid(r,c-1) && !bombs.contains(this))
+                //marked = false;
+                if(isValid(r,c-1) && !bombs.contains(buttons[r][c-1]) && buttons[r][c-1].isClicked() == false)
                     buttons[r][c-1].mousePressed();
-                if(isValid(r,c+1)  && !bombs.contains(this))
+                if(isValid(r,c+1) && !bombs.contains(buttons[r][c+1]) && buttons[r][c+1].isClicked() == false)
                     buttons[r][c+1].mousePressed();
-                if(isValid(r+1,c)  && !bombs.contains(this))
+                if(isValid(r+1,c)  && !bombs.contains(buttons[r+1][c]) && buttons[r+1][c].isClicked() == false)
                     buttons[r+1][c].mousePressed();
-                if(isValid(r-1,c)  && !bombs.contains(this))
+                if(isValid(r-1,c)  && !bombs.contains(buttons[r-1][c]) && buttons[r-1][c].isClicked() == false)
                     buttons[r-1][c].mousePressed();
             }
             
@@ -170,9 +168,10 @@ public class MSButton
     public boolean isValid(int r, int c)
     {
         //your code here
-        if(r >= 0 && r < 20 && c >=0 && c < 20)
+        if(r > 0 && r < 20 && c > 0 && c < 20)
             return true;
-        return false;
+        else
+            return false;
     }
     public int countBombs(int row, int col)
     {
