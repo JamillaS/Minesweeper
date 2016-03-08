@@ -54,7 +54,7 @@ public boolean isWon()
 public void displayLosingMessage()
 {
     fill(197);
-    ellipse(200, 200, 200, 200);
+    text("You Lose", 200, 200);
 }
 public void displayWinningMessage()
 {
@@ -106,7 +106,7 @@ public class MSButton
             
             }
             
-            if(bombs.contains(buttons[r][c]))
+            else if(bombs.contains(buttons[r][c]))
                 displayLosingMessage();
             else if(this.countBombs(r,c) > 0)
             {
@@ -168,7 +168,7 @@ public class MSButton
     public boolean isValid(int r, int c)
     {
         //your code here
-        if(r > 0 && r < 20 && c > 0 && c < 20)
+        if(r >= 0 && r < 20 && c >= 0 && c < 20)
             return true;
         else
             return false;
