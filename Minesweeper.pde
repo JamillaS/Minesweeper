@@ -19,8 +19,8 @@ void setup ()
     bombs = new ArrayList <MSButton> ();
 
     buttons = new MSButton[NUM_ROWS][NUM_COLS];
-    for(int y = 0; y < 20; y += 1)
-        for(int x = 0; x < 20; x += 1)
+    for(int y = 0; y < 20; y++)
+        for(int x = 0; x < 20; x++)
         {
             buttons[x][y] = new MSButton(x,y);
         }
@@ -34,7 +34,7 @@ public void setBombs()
     int randCol = (int)(Math.random() * 20);
     //your code
 
-    for(int i = 0; i < 50; i ++)
+    for(int i = 0; i < 2; i ++)
      if(!bombs.contains(buttons[randRow][randCol]))
         bombs.add(buttons[(int)(Math.random() * 20)][(int)(Math.random() * 20)]);
 }
@@ -47,8 +47,14 @@ public void draw ()
 }
 public boolean isWon()
 {
-    //your code here
-
+    int win = 0;
+     for(int i = 0; i < bombs.size(); i++)
+        if(bombs.get(i).isMarked()){
+           win++;
+            if(win == bombs.size())
+            return true; 
+        }
+            
     return false;
 }
 public void displayLosingMessage()
@@ -56,18 +62,25 @@ public void displayLosingMessage()
     textSize(20);
 
     fill(197);
-    text("You Lose", 200, 450);
+    
+     text("You Lose", 200, 450);
+
+    
 
     textSize(10); 
-
-
 
 }
 public void displayWinningMessage()
 {
     //your code here
     fill(197);
-    text("YOU WIN", 200, 450);
+    for(int r = 0; r < NUM_ROWS; r ++){
+        for(int c = 0; c < NUM_COLS; c ++){
+            
+                text("YOU WIN", 200, 450);
+        }
+    }
+    
 
 
 }
@@ -130,7 +143,7 @@ public class MSButton
             }
             else //if(clicked == true)
             {
-                //marked = false;
+                marked = false;
                 
                 if(isValid(r,c-1) && buttons[r][c-1].isClicked() == false)
                      buttons[r][c-1].mousePressed();
@@ -144,10 +157,9 @@ public class MSButton
                 if(isValid(r+1,c) && buttons[r+1][c].isClicked() == false)
                     buttons[r+1][c].mousePressed();
 
-                
-                
                 if(isValid(r-1,c-1) && buttons[r-1][c-1].isClicked() == false)
                     buttons[r-1][c-1].mousePressed();
+                
                 if(isValid(r-1,c+1) && buttons[r-1][c+1].isClicked() == false)
                     buttons[r-1][c+1].mousePressed();
                 if(isValid(r+1,c-1) && buttons[r+1][c-1].isClicked() == false)
