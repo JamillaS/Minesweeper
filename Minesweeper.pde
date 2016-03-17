@@ -7,6 +7,7 @@ public final static int NUM_COLS = 20;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> bombs; //ArrayList of just the minesweeper buttons that are mined
 boolean loseG = false;
+boolean winG = false;
 void setup ()
 {
     size(400, 500);
@@ -34,7 +35,7 @@ public void setBombs()
     int randCol = (int)(Math.random() * 20);
     //your code
 
-    for(int i = 0; i < 2; i ++)
+    for(int i = 0; i < 50; i ++)
      if(!bombs.contains(buttons[randRow][randCol]))
         bombs.add(buttons[(int)(Math.random() * 20)][(int)(Math.random() * 20)]);
 }
@@ -62,8 +63,14 @@ public void displayLosingMessage()
     textSize(20);
 
     fill(197);
-    
-     text("You Lose", 200, 450);
+    if(winG == false){
+        text("You Lose", 200, 450);
+     for(int i = 0; i < bombs.size(); i++)
+        bombs.get(i).mousePressed();
+    }
+    else
+        text("Don't Cheat", 200, 450);
+     
 
     
 
@@ -73,14 +80,12 @@ public void displayLosingMessage()
 public void displayWinningMessage()
 {
     //your code here
+    winG = true;
     fill(197);
-    for(int r = 0; r < NUM_ROWS; r ++){
-        for(int c = 0; c < NUM_COLS; c ++){
-            
-                text("YOU WIN", 200, 450);
-        }
-    }
-    
+    textSize(20);
+    if(loseG == false)
+    text("YOU WIN", 200, 450);
+
 
 
 }
@@ -162,8 +167,10 @@ public class MSButton
                 
                 if(isValid(r-1,c+1) && buttons[r-1][c+1].isClicked() == false)
                     buttons[r-1][c+1].mousePressed();
+
                 if(isValid(r+1,c-1) && buttons[r+1][c-1].isClicked() == false)
                     buttons[r+1][c-1].mousePressed();
+
                 if(isValid(r+1,c+1) && buttons[r+1][c+1].isClicked() == false)
                     buttons[r+1][c+1].mousePressed();
                 
@@ -214,7 +221,7 @@ public class MSButton
     public boolean isValid(int r, int c)
     {
         //your code here
-        if(r >= 0 && r < 20 && c >= 0 && c < 20)
+        if(r > -1 && r < 20 && c > -1 && c < 20)
             return true;
         else
             return false;
@@ -222,6 +229,7 @@ public class MSButton
     public int countBombs(int row, int col)
     {
         int numBombs = 0;
+        /*
         //your code here
         if(buttons[r][c+1].isValid(r,c+1) && bombs.contains(buttons[r][c+1]))
             numBombs++;
@@ -238,6 +246,23 @@ public class MSButton
         if(buttons[r+1][c-1].isValid(r+1,c-1) && bombs.contains(buttons[r+1][c-1]))
             numBombs++;
         if(buttons[r-1][c+1].isValid(r-1,c+1) && bombs.contains(buttons[r-1][c+1]))
+            numBombs++;
+        */
+         if(this.isValid(r,c+1) && bombs.contains(buttons[r][c+1]))
+            numBombs++;
+        if(this.isValid(r,c-1) && bombs.contains(buttons[r][c-1]))
+            numBombs++;
+        if(this.isValid(r+1,c) && bombs.contains(buttons[r+1][c]))
+            numBombs++;
+        if(this.isValid(r-1,c) && bombs.contains(buttons[r-1][c]))
+            numBombs++;
+        if(this.isValid(r+1,c+1) && bombs.contains(buttons[r+1][c+1]))
+            numBombs++;
+        if(this.isValid(r-1,c-1) && bombs.contains(buttons[r-1][c-1]))
+            numBombs++;
+        if(this.isValid(r+1,c-1) && bombs.contains(buttons[r+1][c-1]))
+            numBombs++;
+        if(this.isValid(r-1,c+1) && bombs.contains(buttons[r-1][c+1]))
             numBombs++;
         
 
